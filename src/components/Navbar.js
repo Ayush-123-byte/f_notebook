@@ -2,19 +2,19 @@ import React, { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 function Navbar() {
-  let navigate=useNavigate()
-  const handleLogout=()=>{
-    localStorage.removeItem("token")
-    navigate("/login")
-  }
+  let navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   let location = useLocation();
   useEffect(() => {}, [location]);
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div className="container-fluid">
+      <nav className="navbar h-25 navbar-expand-lg navbar-dark bg-dark">
+        <div className="container-fluid  ">
           <Link className="navbar-brand" to="/">
-            Navbar
+            Notebook
           </Link>
           <button
             className="navbar-toggler"
@@ -51,15 +51,28 @@ function Navbar() {
                 </Link>
               </li>
             </ul>
-            {!localStorage.getItem("token")?
-            <form className="d-flex">
-              <Link className="btn btn-primary mx-1" to="/login" role="button">
-                Login
-              </Link>
-              <Link className="btn btn-primary mx-1" to="/signup" role="button">
-                signup
-              </Link>
-            </form>: <button onClick={handleLogout} className="btn btn-primary">Logout</button>}
+            {!localStorage.getItem("token") ? (
+              <form className="d-flex">
+                <Link
+                  className="btn btn-primary mx-1"
+                  to="/login"
+                  role="button"
+                >
+                  Login
+                </Link>
+                <Link
+                  className="btn btn-primary mx-1"
+                  to="/signup"
+                  role="button"
+                >
+                  signup
+                </Link>
+              </form>
+            ) : (
+              <button onClick={handleLogout} className="btn btn-primary">
+                Logout
+              </button>
+            )}
           </div>
         </div>
       </nav>

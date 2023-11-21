@@ -33,9 +33,9 @@ function Login(props) {
   };
   return (
     <>
-      <div className="mt-4 w-50 m-auto bg-white p-4 rounded">
+      <div className="mt-4  m-auto bg-white p-4 rounded">
       <h2>Login to continue Notebook</h2>
-        <form className="my-4 border p-2 rounded" onSubmit={handleSubmit}>
+        <form className="my-4 border p-3 rounded" onSubmit={handleSubmit}>
           <div className="form-group ">
             <label htmlFor="email">Email address</label>
             <input
@@ -55,10 +55,18 @@ function Login(props) {
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
-             
+              type="password"
+              name="password"
+              className="form-control my-2"
+              id="password"
+              value={credentials.password}
+              onChange={onchange}
+              aria-describedby="emailHelp"
+              placeholder="Enter password"
             />
           </div>
 
+          
           <button type="submit" className="btn btn-primary my-2 ">
             Submit
           </button>
