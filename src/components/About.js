@@ -1,7 +1,18 @@
 // components/About.js
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const About = () => {
+  let navigate = useNavigate();
+  useEffect(() => {
+   if(localStorage.getItem('token')){
+    navigate("/about")
+   }
+   else{
+    navigate("/login")
+  }
+    // eslint-disable-next-line
+  }, []);
   return (
     <div className="container mx-auto my-8 p-8 bg-white shadow-lg rounded-lg">
       <h1 className="text-3xl font-bold mb-4">About the Notebook App</h1>
