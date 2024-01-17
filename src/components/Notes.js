@@ -1,21 +1,19 @@
-import React, { useContext,useState, useRef, useEffect } from "react";
+import React, { useContext, useState, useRef, useEffect } from "react";
 import NoteItem from "./NoteItem";
-import Addnote from "./Addnote";
 
-import { notecontext } from "./NoteState";
+import { notecontext } from "../context/NoteState";
 import { useNavigate } from "react-router-dom";
 
 function Notes(props) {
   const context = useContext(notecontext);
   let navigate = useNavigate();
-  const { notes, getNotes, editNote } = context;
+  const { notes, getNotes, editNote,changeMode } = context;
   useEffect(() => {
-   if(localStorage.getItem('token')){
-    getNotes();
-   }
-   else{
-    navigate("/login")
-  }
+    if (localStorage.getItem("token")) {
+      getNotes();
+    } else {
+      navigate("/login");
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -36,7 +34,6 @@ function Notes(props) {
       edescription: currentNote.description,
       etag: currentNote.tag,
     });
-
   };
 
   const handleClick = (e) => {
@@ -50,7 +47,6 @@ function Notes(props) {
 
   return (
     <>
-      <Addnote showAlert={props.showAlert}/>
       <button
         ref={ref}
         type="button"
@@ -67,7 +63,7 @@ function Notes(props) {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog">
+        <div style={changeMode} className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">
@@ -159,7 +155,12 @@ function Notes(props) {
         </div>
         {notes.map((note) => {
           return (
-            <NoteItem key={note._id}  showAlert={props.showAlert} updateNote={updateNote} note={note} />
+            <NoteItem
+              key={note._id}
+              showAlert={props.showAlert}
+              updateNote={updateNote}
+              note={note}
+            />
           );
         })}
       </div>

@@ -1,7 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { notecontext } from "../context/NoteState";
+import { FiMoon, FiSun } from "react-icons/fi";
 
 function Navbar() {
+  const { mode, toggelMode } = useContext(notecontext);
   let navigate = useNavigate();
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -9,9 +12,10 @@ function Navbar() {
   };
   let location = useLocation();
   useEffect(() => {}, [location]);
+  
   return (
     <>
-      <nav className="navbar h-25 navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar h-25 position-sticky top-0 navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid  ">
           <Link className="navbar-brand" to="/">
             Notebook
@@ -50,6 +54,16 @@ function Navbar() {
                   About
                 </Link>
               </li>
+              <li>
+                <Link
+                  className={`nav-link ${
+                    location.pathname === "/notes" ? "active" : ""
+                  } `}
+                  to="/notes"
+                >
+                  Notes
+                </Link>
+              </li>
             </ul>
             {!localStorage.getItem("token") ? (
               <form className="d-flex">
@@ -73,6 +87,14 @@ function Navbar() {
                 Logout
               </button>
             )}
+            <div onClick={toggelMode} className=" px-4 mode ">
+              {/* <FiMoon className="text-white" /> */}
+              {mode === "light" ? (
+                <FiMoon className="text-white fs-4" />
+              ) : (
+                <FiSun className="text-white fs-4" />
+              )}
+            </div>
           </div>
         </div>
       </nav>

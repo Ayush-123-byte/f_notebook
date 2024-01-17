@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { notecontext } from "../context/NoteState";
 
 function Login(props) {
+  const{changeMode}=useContext(notecontext)
+
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   let navigate = useNavigate();
   const handleSubmit = async (e) => {
@@ -33,12 +36,13 @@ function Login(props) {
   };
   return (
     <>
-      <div className="mt-4  m-auto bg-white p-4 rounded">
+      <div style={changeMode} className="mt-4  m-auto  p-4 rounded">
       <h2>Login to continue Notebook</h2>
         <form className="my-4 border p-3 rounded" onSubmit={handleSubmit}>
           <div className="form-group ">
             <label htmlFor="email">Email address</label>
             <input
+            style={changeMode}
               type="email"
               name="email"
               className="form-control my-2"
@@ -55,6 +59,8 @@ function Login(props) {
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
+                        style={changeMode}
+
               type="password"
               name="password"
               className="form-control my-2"

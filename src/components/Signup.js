@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { notecontext } from "../context/NoteState";
 
 function Signup(props) {
+  const { changeMode } = useContext(notecontext);
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -31,7 +33,7 @@ function Signup(props) {
     if (json.success) {
       //save the auth token and redirect
       localStorage.setItem("token", json.authtoken);
-      navigate("/");
+      navigate("/login");
       props.showAlert("Account Created Successfully", "success");
     } else {
       props.showAlert(" Invalid Credentials", "danger");
@@ -43,7 +45,7 @@ function Signup(props) {
   };
 
   return (
-    <div className="mt-2 m-auto bg-white p-4 rounded">
+    <div style={changeMode} className="mt-2 m-auto  p-4 rounded">
       <h2>Create an account to use Notebook</h2>
 
       <form
@@ -55,6 +57,7 @@ function Signup(props) {
             Name
           </label>
           <input
+            style={changeMode}
             name="name"
             type="text"
             onChange={onchange}
@@ -66,6 +69,7 @@ function Signup(props) {
             Email address
           </label>
           <input
+            style={changeMode}
             name="email"
             type="email"
             onChange={onchange}
@@ -81,6 +85,7 @@ function Signup(props) {
               Password
             </label>
             <input
+              style={changeMode}
               name="password"
               type="password"
               onChange={onchange}
@@ -95,6 +100,7 @@ function Signup(props) {
               Confirm Password{" "}
             </label>
             <input
+              style={changeMode}
               name="cpassword"
               type="password"
               onChange={onchange}

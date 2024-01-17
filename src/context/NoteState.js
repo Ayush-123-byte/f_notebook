@@ -6,6 +6,26 @@ function NoteState(props) {
   const notesInitial = [];
   const [notes, setNotes] = useState(notesInitial);
 
+  const [mode, setMode] = useState("light");
+  const toggelMode = () => {
+    if (mode === "light") {
+      setMode("dark");
+      document.body.style.backgroundColor = "rgb(38, 36, 36)";
+      document.body.style.color = "white";
+    } else {
+      setMode("light");
+      document.body.style.backgroundColor = "whitesmoke";
+      document.body.style.color = "black";
+    }
+  };
+
+  const changeMode={
+      backgroundColor :mode==="light"?"white": "rgb(34 37 43)",
+      color:mode==="light"?"black":"white"
+      
+    }
+
+  
   // Get all notes
   const getNotes = async () => {
     //  Api call
@@ -13,7 +33,7 @@ function NoteState(props) {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":localStorage.getItem('token')
+        "auth-token": localStorage.getItem("token"),
       },
     });
     const json = await response.json();
@@ -27,27 +47,24 @@ function NoteState(props) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token":localStorage.getItem('token')
+        "auth-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    const note =await response.json();
+    const note = await response.json();
     setNotes(notes.concat(note));
   };
 
   // Delete a note
   const deleteNote = async (id) => {
-    const response = await fetch(
-      `${host}/api/notes/deletenote/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token":localStorage.getItem('token')
-        },
-      }
-    );
-    const json = response.json();
+    const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+    });
+    const json = await response.json();
     console.log(json);
 
     const newNotes = notes.filter((note) => {
@@ -59,21 +76,18 @@ function NoteState(props) {
   // Edit a note
   const editNote = async (id, title, description, tag) => {
     //  Api call
-    const response = await fetch(
-      `${host}/api/notes/updatenote/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token":localStorage.getItem('token')
-        },
-        body: JSON.stringify({ title, description, tag }),
-      }
-    );
+    const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": localStorage.getItem("token"),
+      },
+      body: JSON.stringify({ title, description, tag }),
+    });
     const json = await response.json();
     console.log(json);
 
-    let newNotes=JSON.parse(JSON.stringify(notes))
+    let newNotes = JSON.parse(JSON.stringify(notes));
     // Logic to edit notes
     for (let i = 0; i < notes.length; i++) {
       const element = newNotes[i];
@@ -84,12 +98,12 @@ function NoteState(props) {
         break;
       }
     }
-    setNotes(newNotes)
+    setNotes(newNotes);
   };
 
   return (
     <notecontext.Provider
-      value={{ notes, editNote, deleteNote, addNote, getNotes }}
+      value={{ notes, editNote, deleteNote, addNote, getNotes,mode,toggelMode, changeMode }}
     >
       {props.children}
     </notecontext.Provider>

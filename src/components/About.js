@@ -1,8 +1,11 @@
 // components/About.js
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { notecontext } from '../context/NoteState';
 
 const About = () => {
+  const { changeMode } = useContext(notecontext);
+
   let navigate = useNavigate();
   useEffect(() => {
    if(localStorage.getItem('token')){
@@ -14,7 +17,7 @@ const About = () => {
     // eslint-disable-next-line
   }, []);
   return (
-    <div className="container mx-auto my-8 p-8 bg-white shadow-lg rounded-lg">
+    <div style={changeMode} className="container mx-auto my-8 p-8  shadow-lg rounded-lg">
       <h1 className="text-3xl font-bold mb-4">About the Notebook App</h1>
       <p className="text-gray-700">
         Welcome to the Notebook App, your go-to place for organizing and managing your notes effortlessly.

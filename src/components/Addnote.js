@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import { notecontext } from "./NoteState";
+import { notecontext } from "../context/NoteState";
 
 function Addnote(props) {
   const context = useContext(notecontext);
-  const { addNote } = context;
+  const { addNote, changeMode } = context;
   const [note, setNote] = useState({
     title: "",
     description: "",
@@ -21,7 +21,7 @@ function Addnote(props) {
   };
   return (
     <>
-      <div className="container my-2 bg-white p-4 rounded">
+      <div style={changeMode} className="container my-2  p-4 rounded">
         <h2>Add a Note</h2>
         <form>
           <div className="mb-3">
@@ -29,6 +29,7 @@ function Addnote(props) {
               Title
             </label>
             <input
+              style={changeMode}
               type="text"
               className="form-control"
               id="title"
@@ -36,7 +37,8 @@ function Addnote(props) {
               aria-describedby="emailHelp"
               onChange={onChange}
               minLength={5}
-              required value={note.title}
+              required
+              value={note.title}
             />
           </div>
           <div className="mb-3">
@@ -44,13 +46,15 @@ function Addnote(props) {
               Description
             </label>
             <input
+              style={changeMode}
               type="text"
               className="form-control"
               id="description"
               name="description"
               onChange={onChange}
               minLength={5}
-              required value={note.description}
+              required
+              value={note.description}
             />
           </div>
           <div className="mb-3">
@@ -58,13 +62,15 @@ function Addnote(props) {
               Tag
             </label>
             <input
+              style={changeMode}
               type="text"
               className="form-control"
               id="tag"
               name="tag"
               onChange={onChange}
               minLength={5}
-              required value={note.tag}
+              required
+              value={note.tag}
             />
           </div>
 
