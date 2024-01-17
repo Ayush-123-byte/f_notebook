@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 function Notes(props) {
   const context = useContext(notecontext);
   let navigate = useNavigate();
-  const { notes, getNotes, editNote,changeMode } = context;
+  const { notes, getNotes, editNote,changeMode,mode } = context;
   useEffect(() => {
     if (localStorage.getItem("token")) {
       getNotes();
@@ -63,7 +63,7 @@ function Notes(props) {
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div style={changeMode} className="modal-dialog">
+        <div  className={`modal-dialog text-black ` }>
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLabel">

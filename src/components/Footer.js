@@ -6,7 +6,7 @@ function Footer() {
 
 return(
 
-    <footer style={changeMode} className="bg-dark text-light text-center py-2">
+    <footer style={changeMode} className="bg-dark position-sticky bottom-0 text-light text-center py-2">
     <div className="container">
       <p>&copy;being_07. All rights reserved.</p>
     </div>

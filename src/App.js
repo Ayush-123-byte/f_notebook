@@ -44,7 +44,7 @@ function App() {
               <Route exact path="/notes" element={<Notes />} />
             </Routes>
           </div>
-          <Footer/>
+          {/* <Footer/> */}
         </Router>
       </NoteState>
     </>
